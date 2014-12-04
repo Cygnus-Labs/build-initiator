@@ -1,8 +1,16 @@
 #!/bin/bash
 set -ev
 
-cd ~/coreos
-./chromite/bin/cros_sdk -r
+git config --global user.email "lucractius@me.com"
+git config --global user.name "Samuel Bishop"
+git config --global color.ui "true"
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+export PATH="$PATH":`pwd`/depot_tools
+mkdir coreos
+cd coreos
+repo init -u https://github.com/cygnus-labs/manifest.git -g minilayout --repo-url https://chromium.googlesource.com/external/repo.git
+repo sync
+# ./chromite/bin/cros_sdk -r
 ./chromite/bin/cros_sdk
 ./set_shared_user_password.sh testing
 echo amd64-usr > .default_board
